@@ -2,31 +2,6 @@ import { error, success } from '../helpers/response.js';
 import models from '../models/index.js';
 import * as asgSvc from '../services/assignment.service.js';
 
-// export async function assignUser(req, res) {
-//     try {
-//         const { userId, projectId } = req.body;
-
-//         if (!userId || !projectId) {
-//             return error(res, 400, 'Missing required fields: userId, projectId');
-//         }
-
-//         const asg = await asgSvc.assignUserToProject({ userId, projectId });
-//         return success(res, 201, 'User assigned to project', asg);
-
-//     } catch (err) {
-//         const msg = err.message || '';
-
-//         if (msg.includes('not found')) {
-//             return error(res, 404, 'Assignment failed', msg);
-//         }
-
-//         if (msg.includes('already assigned')) {
-//             return error(res, 409, 'Assignment failed', msg);
-//         }
-//         return error(res, 400, 'Assignment failed', msg);
-//     }
-// }
-
 export async function assignUser(req, res) {
     try {
         const { userId, projectId } = req.body;
@@ -49,7 +24,7 @@ export async function assignUser(req, res) {
         return success(res, 201, "User assigned to project", asg);
 
     } catch (err) {
-console.log('err :>> ', err);
+        console.log('err :>> ', err);
         const msg = err.message || "";
 
         if (msg.includes("not found")) {

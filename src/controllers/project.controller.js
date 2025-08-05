@@ -5,7 +5,7 @@ import * as userSvc from '../services/user.service.js';
 
 export async function addProject(req, res) {
     try {
-        const { title, dueDate, description } = req.body;
+        const { title, dueDate, description, techStack, timeline } = req.body;
 
         if (!title || !description) {
             return error(res, 400, 'Missing required field: title | description');
@@ -16,11 +16,15 @@ export async function addProject(req, res) {
             return error(res, 409, `Project with title "${title}" already exists`);
         }
 
-
-        const project = await projectSvc.createProject({ title, dueDate, description });
+        const project = await projectSvc.createProject({
+            title, dueDate, description,
+            techStack: techStack ?? [],
+            timeline: timeline ?? []
+        });
         return success(res, 201, 'Project created', project);
 
     } catch (err) {
+        console.log('err :>> ', err);
         return error(res, 400, 'Create project failed', err.message);
     }
 }
@@ -52,7 +56,12 @@ export async function editProject(req, res) {
             }
         }
 
-        const project = await projectSvc.updateProject(projectId, updates);
+        // const project = await projectSvc.updateProject(projectId, updates);
+        const project = await projectSvc.updateProject(projectId, {
+            ...updates,
+            techStack: updates.techStack ?? [],
+            timeline: updates.timeline ?? []
+        });
         return success(res, 200, 'Project updated', project);
 
     } catch (err) {

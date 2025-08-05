@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import aiRoutes from './ai.route.js';
 import assignmentRoutes from './assignment.route.js';
 import dashboardRoutes from './dashboard.route.js';
 import projectRoutes from './project.route.js';
@@ -14,4 +15,6 @@ router.use('/users', userRoutes);
 router.use('/projects', projectRoutes);
 router.use('/assignments', assignmentRoutes);
 router.use('/dashboard', dashboardRoutes);
+router.use('/ai', aiRoutes);
+
 export default router;
